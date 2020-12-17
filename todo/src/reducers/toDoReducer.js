@@ -12,8 +12,33 @@ export const initialState = [
   }
 ];
 
-export const reducer = (state, action) => {
+export const toDoReducer = (state, action) => {
   switch (action.type) {
-    case 
+    case ACTIONS.ADD_TODO:
+      return [
+        ...state,
+        {
+          item: action.payload,
+          completed: false,
+          id: Date.now()
+        },
+      ];
+      case ACTIONS.TOGGLE_TODO:
+        return state.map((item) => {
+          if (item.id === action.payload) {
+            return {
+              ...item,
+              completed:!item.completed,
+            };
+          } else {
+            return item;
+          }
+        });
+        case ACTIONS.DELETE_TODO:
+          return state.filter((item) => !item.completed);
+          default:
+            return state;
   }
-}
+};
+
+export default toDoReducer;
