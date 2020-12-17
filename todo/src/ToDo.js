@@ -1,11 +1,10 @@
 import React, { useState, useReducer } from "react";
 import { toDoReducer, initialState, ACTIONS } from "./reducers/toDoReducer";
+import { TodoList } from "./TodoList"
 
-//add a newTodo
 //check if completed, and if so put a line through it
 
-
-const ToDo = (props) => {
+const ToDo = () => {
 
   const [todo, setTodo] = useState('');
   const [state, dispatch] = useReducer(toDoReducer, initialState);
@@ -14,10 +13,14 @@ const ToDo = (props) => {
     setTodo(e.target.value);
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault()
     dispatch({ type: ACTIONS.ADD_TODO, payload: { todo } })
     setTodo('')
+  }
+
+  const toggleTodo = id => {
+    dispatch({ type: ACTIONS.TOGGLE_TODO, payload: id})
   }
 
   return (
@@ -27,12 +30,14 @@ const ToDo = (props) => {
       <input
         type="text"
         name="Todo"
-        value={todo} //needs to be a value of newTodo
+        value={todo}
         onChange={handleChanges}
       />
       </form>
       <button onClick={handleSubmit}>Add Item</button>
       <button onClick={() => dispatch({type: ACTIONS.DELETE_TODO})}>Clear Completed</button>
+
+      <TodoList todos={state} toggleTodo={toggleTodo}/>
       
     </div>
   );
