@@ -8,14 +8,14 @@ const ToDo = () => {
 
   const [todo, setTodo] = useState('');
   const [state, dispatch] = useReducer(toDoReducer, initialState);
-
+  console.log(state)
   const handleChanges = e => {
     setTodo(e.target.value);
   }
 
   const handleSubmit = e => {
     e.preventDefault()
-    dispatch({ type: ACTIONS.ADD_TODO, payload: { todo } })
+    dispatch({ type: ACTIONS.ADD_TODO, payload: todo  })
     setTodo('')
   }
 

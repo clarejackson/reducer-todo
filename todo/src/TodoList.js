@@ -4,11 +4,15 @@ export const TodoList = (props) => {
   console.log(props)
   console.log(props.todos)
   return (
-    <ul>
+    <div>
     {props.todos.map((newTodo) => {
-      return <li key={newTodo.id}>{newTodo.item}</li>
+      return <div key={newTodo.id} onClick={() => props.toggleTodo(newTodo.id)} style={{textDecoration: newTodo.completed ? "line-through" : "none"}}>
+        <p key={newTodo.id}>{newTodo.item}</p>
+        </div>
     })}
-    </ul>
+    {/* {props.todos.map((newTodo) => console.log(newTodo.item))} */}
+    
+    </div>
   )
 
 }
